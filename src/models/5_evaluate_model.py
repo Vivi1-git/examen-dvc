@@ -9,8 +9,8 @@ import json
 # ainsi qu'un fichier scores.json dans le dossier metrics qui récupérera les métriques d'évaluation de notre modèle (i.e. mse, r2, etc).
 
 # Chargement des données test et du modèle
-X_test = pd.read_csv("data/processed/X_test_scaled.csv") # Chargement des données de test
-y_test = pd.read_csv("data/processed/y_test.csv").values.ravel() # .ravel() pour convertir en array 1D necessaire pour sklearn
+X_test = pd.read_csv("data/processed_data/X_test_scaled.csv") # Chargement des données de test
+y_test = pd.read_csv("data/processed_data/y_test.csv").values.ravel() # .ravel() pour convertir en array 1D necessaire pour sklearn
 model = joblib.load("models/trained_model.pkl") # Chargement du modèle entraîné
 
 # Prédictions
