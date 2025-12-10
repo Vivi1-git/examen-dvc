@@ -1,0 +1,42 @@
+stages:
+  split:
+    cmd: python src/data/1_split_data.py
+    deps:
+    - data/raw_data
+    - src/data/1_split_data.py
+    outs:
+    - data/processed/split
+  normalize:
+    cmd: python src/data/2_normalize_data.py
+    deps:
+    - data/processed/split
+    - src/data/2_normalize_data.py
+    outs:
+    - data/processed/norm
+  gridsearch:
+    cmd: python src/models/3_gridsearch_model.py
+    deps:
+    - data/processed/norm
+    - data/processed/split
+    - src/models/3_gridsearch_model.py
+    outs:
+    - models/best_params.pkl
+  training:
+    cmd: python src/models/4_train_model.py
+    deps:
+    - data/processed/norm
+    - data/processed/split
+    - models/best_params.pkl
+    - src/models/4_train_model.py
+    outs:
+    - models/trained_model.pkl
+  evaluate:
+    cmd: python src/models/5_evaluate_model.py
+    deps:
+    - data/processed/norm
+    - data/processed/split
+    - models/trained_model.pkl
+    - src/models/5_evaluate_model.py
+    outs:
+    - data/predictions.csv
+    - metrics/scores.json

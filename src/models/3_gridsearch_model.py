@@ -8,8 +8,11 @@ import joblib
 # À l'issue de ce script vous aurez les meilleurs paramètres sous forme de fichier .pkl que vous sauvegarderez dans le dossier models.
 
 # Chargement des données normalisées
-X_train = pd.read_csv("data/processed_data/X_train_scaled.csv")
-y_train = pd.read_csv("data/processed_data/y_train.csv").values.ravel()
+X_train = pd.read_csv("data/processed/norm/X_train_scaled.csv")
+y_train = pd.read_csv("data/processed/split/y_train.csv").values.ravel()
+
+# On garde seulement les colonnes numériques
+X_train = X_train.select_dtypes(include=["float64", "int64"])
 
 # Définition du modèle
 rf = RandomForestRegressor(random_state=42)
